@@ -21,6 +21,14 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = ">= 2.16.1"
     }
+    http = {
+      source  = "hashicorp/http"
+      version = "3.2.1"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = "2.3.0"
+    }
   }
   backend "s3" {
     bucket  = "containar"
