@@ -1,8 +1,9 @@
-resource "aws_route53_zone" "primary" {
-  name = var.domain_name
+# get details about a route 53 hosted zone
+data "aws_route53_zone" "route53_zone" {
+  name         = var.domain_name
+  private_zone = false
 }
-
-# request public certificates from the amazon certificate manager.
+#request public certificates from the amazon certificate manager.
 resource "aws_acm_certificate" "acm_certificate" {
   domain_name               = var.domain_name
   subject_alternative_names = ["api.${var.domain_name}", "app.${var.domain_name}", "argocd.${var.domain_name}", "secure-echo-v2.${var.domain_name}"]
@@ -28,7 +29,7 @@ resource "aws_route53_record" "route53_record" {
   records         = [each.value.record]
   ttl             = 60
   type            = each.value.type
-  zone_id         = aws_route53_zone.primary.zone_id
+  zone_id         = data.aws_route53_zone.route53_zone.zone_id
 }
 
 # validate acm certificates
@@ -36,3 +37,5 @@ resource "aws_acm_certificate_validation" "acm_certificate_validation" {
   certificate_arn         = aws_acm_certificate.acm_certificate.arn
   validation_record_fqdns = [for record in aws_route53_record.route53_record : record.fqdn]
 }
+
+
