@@ -13,3 +13,13 @@ variable "cluster_name" {
   description = "The base name of the eks cluster"
 }
 
+
+variable "user_name" {
+  type        = string
+  description = "AWS username of existing user"
+}
+
+variable "domain_name" {
+  type        = string
+  description = "Domain name"
+}

@@ -7,15 +7,13 @@ metadata:
 EOF
 }
 
-
 data "kubectl_file_documents" "argocd" {
-  content = file("./application.yaml")
+  content = file("./argocd.yaml")
 }
 
 resource "kubectl_manifest" "argocd" {
-  depends_on = [kubectl_manifest.argocd_namespace]
-  count      = length(data.kubectl_file_documents.argocd.documents)
-  yaml_body  = element(data.kubectl_file_documents.argocd.documents, count.index)
+  depends_on         = [kubectl_manifest.argocd_namespace]
+  count              = length(data.kubectl_file_documents.argocd.documents)
+  yaml_body          = element(data.kubectl_file_documents.argocd.documents, count.index)
   override_namespace = "argocd"
 }
-

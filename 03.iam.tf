@@ -73,7 +73,7 @@ module "allow_assume_eks_admins_iam_policy" {
 
 # get current user
 data "aws_iam_user" "current_user" {
-  user_name = "terraform"
+  user_name = var.user_name
 }
 
 # Create a group (eks-admin) that assumes the role (eks-admin) and add judah to it
