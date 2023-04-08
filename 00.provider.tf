@@ -31,7 +31,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket  = "containar"
+    bucket  = "rimsys"
     key     = "global/s3/terraform.tfstate"
     encrypt = true
     region  = "us-east-1"
