@@ -1,8 +1,8 @@
 region = "us-east-1"
 
-infra_name = "MyProfile-VPC"
+infra_name = "rimsys"
 
-cluster_name = "myprofile-cluster"
+cluster_name = "rimsys"
 
 user_name = "terraform"
 
